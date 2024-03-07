@@ -1,0 +1,60 @@
+<html>
+    <head>
+
+    </head>
+    <body>
+        <h1>google driveダウンロードリンク生成</h1>
+        <p>リンクを貼り付け、生成ボタンを押してください</p>
+        <form name="myform">
+            <input type="text" id="link" size="120" placeholder="リンクを入力" >
+            <br>
+            <br>
+            <input type="button" value="リンク生成" onclick="return checkLink()">
+            <input type="button" value="リセット" onclick="window.location.reload();">
+        </form>
+        <br>
+        <br>
+        <p id="cutlink"></p>
+        <br>
+        <button onlick="copy()">生成したリンクをコピー</button>
+        <br>
+        <br>
+        <br>
+        <p>©2024 Ren Yoshimura</p>
+        
+        <script>
+            function checkLink() {
+                //リンクを取得
+                const link_ = document.getElementById("link").value;
+
+                //リンクの必要部分を取得
+                var link_c1 = link_.substr(32);
+                var link_c2 = link_c1.substr(0, link_c1.indexOf("/"));
+
+                //ダウンロードリンク生成
+                document.getElementById("cutlink").textContent ="https://drive.google.com/u/4/uc?id=" + link_c2 + "&export=download";
+            }
+
+            function copy() {
+                //p要素取得
+                var text = document.getElementById("cutlink").innerText;
+
+                //textarea生成
+                var area = document.createElement("textarea");
+
+                //p要素内容をtextareaに記述
+                area.textContent = text;
+
+                //生成したものをdocumentに追加
+                document.body.appendChild(area);
+
+                //選択コピー
+                area.select();
+                document.execCommand("copy");
+
+                //area消去
+                document.body.removeChild(area);
+            }
+        </script>
+    </body>
+</html>
